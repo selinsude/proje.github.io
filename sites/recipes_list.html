@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tarifler</title>
+  <link rel="stylesheet" href="recipes_list.css" />
+</head>
+
+<body>
+  <div class="navbar">
+    <nav class="ust_menu">
+      <a href="home.html" class="sil" onclick="delete_user(event)">Hesabı Sil</a>
+      <a href="home.html" class="register">Çıkış</a>
+      <a href="#" class="change_password" onclick="change_pass(event)">Kullanıcı Adı Değiştir</a>
+    </nav>
+  </div>
+  <div class="recipes">
+    <div class="recipe" data-recipe-number="1">
+      <a href="#" class="recipe_1" onclick="handleRecipeClick(this)">
+        <img src="../recipes_img/magnolia.webp" alt="" class="img_1" />
+      </a>
+      <h3 class="title1">
+        <a href="#" onclick="handleRecipeClick(this)">Magnolya</a>
+      </h3>
+    </div>
+    <div class="recipe" data-recipe-number="2">
+      <a href="#" class="recipe_2" onclick="handleRecipeClick(this)">
+        <img src="../recipes_img/ispanakli-pasta.jpeg" alt="" class="img_2" />
+      </a>
+      <h3 class="title2">
+        <a href="#" onclick="handleRecipeClick(this)">Ispanaklı Pasta</a>
+      </h3>
+    </div>
+    <div class="recipe" data-recipe-number="3">
+      <a href="#" class="recipe_3" onclick="handleRecipeClick(this)">
+        <img src="../recipes_img/lazanya_2.webp" alt="" class="img_3" />
+      </a>
+      <h3 class="title3">
+        <a href="#" onclick="handleRecipeClick(this)">Lazanya</a>
+      </h3>
+    </div>
+    <div class="recipe" data-recipe-number="4">
+      <a href="#" class="recipe_4" onclick="handleRecipeClick(this)">
+        <img src="../recipes_img/enginar.avif" alt="" class="img_4" />
+      </a>
+      <h3 class="title4">
+        <a href="#" onclick="handleRecipeClick(this)">Enginar</a>
+      </h3>
+    </div>
+    <div class="recipe" data-recipe-number="5">
+      <a href="#" class="recipe_5" onclick="handleRecipeClick(this)">
+        <img src="../recipes_img/humus.webp" alt="" class="img_5" />
+      </a>
+      <h3 class="title5">
+        <a href="#" onclick="handleRecipeClick(this)">Humus</a>
+      </h3>
+    </div>
+    <div class="recipe" data-recipe-number="6">
+      <a href="#" class="recipe_6" onclick="handleRecipeClick(this)">
+        <img src="../recipes_img/koza_mantisi.jpeg" alt="" class="img_6" />
+      </a>
+      <h3 class="title6">
+        <a href="#" onclick="handleRecipeClick(this)">Koza Mantısı</a>
+      </h3>
+    </div>
+  </div>
+
+  <script>
+    function handleRecipeClick(element) {
+      const recipeNumber = element.closest(".recipe").dataset.recipeNumber;
+
+      window.location.href = "main.html?recipe=" + recipeNumber;
+    }
+
+    function getParameterByName(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return "";
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    var usern = getParameterByName("usern");
+    alert(usern);
+    function delete_user(event) {
+      event.preventDefault();
+      const confirmed = confirm("Profilinizi silmek istediğinize emin misiniz?");
+      if (confirmed) {
+        localStorage.removeItem(usern);
+        alert("Profiliniz silindi.");
+        window.location.href = "home.html?";
+      }
+    }
+
+    function change_pass(event) {
+      var newUsername = prompt("Enter your new username:");
+      var usern = getParameterByName("usern");
+
+      var userData = localStorage.getItem(usern);
+      var userObject = JSON.parse(userData);
+      userObject.username = newUsername;
+
+      localStorage.removeItem(usern);
+     
+      localStorage.setItem(newUsername, JSON.stringify(userObject));
+      alert("Username updated successfully!");
+      
+      
+    }
+
+  </script>
+</body>
+
+</html>
